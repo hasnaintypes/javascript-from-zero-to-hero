@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Get current weather conditions and forecasts for any location">
+    <meta name="theme-color" content="#4f46e5">
+    
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌤️</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="weather-icon">🌤️</span>
+                    Weather App
+                </h1>
+                
+                <div class="header-controls">
+                    <button id="unitToggle" class="unit-toggle" aria-label="Toggle temperature unit">°C</button>
+                    <button id="refreshBtn" class="refresh-btn" aria-label="Refresh weather data">🔄</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-input-group">
+                    <input type="text" 
+                           id="searchInput" 
+                           class="search-input" 
+                           placeholder="Search for a city..."
+                           autocomplete="off">
+                    <button id="searchBtn" class="search-btn" aria-label="Search">🔍</button>
+                </div>
+                
+                <button id="locationBtn" class="location-btn" aria-label="Use current location">
+                    📍 Use My Location
+                </button>
+            </div>
+            
+            <div id="searchSuggestions" class="search-suggestions" role="listbox" aria-hidden="true"></div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading weather data...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <h3>Oops! Something went wrong</h3>
+            <p id="errorMessage">Unable to fetch weather data. Please try again.</p>
+            <button id="retryBtn" class="retry-btn">Try Again</button>
+        </div>
+
+        <!-- Main Weather Content -->
+        <main id="weatherContent" class="weather-content" style="display: none;">
+            <!-- Current Weather -->
+            <section class="current-weather">
+                <div class="current-weather-main">
+                    <div class="weather-icon-large" id="currentWeatherIcon">☀️</div>
+                    
+                    <div class="current-temp-info">
+                        <div class="current-temp" id="currentTemp">--°</div>
+                        <div class="current-description" id="currentDescription">--</div>
+                        <div class="current-location" id="currentLocation">--</div>
+                    </div>
+                </div>
+                
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Feels like</span>
+                        <span class="detail-value" id="feelsLike">--°</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Humidity</span>
+                        <span class="detail-value" id="humidity">--%</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Wind</span>
+                        <span class="detail-value" id="windSpeed">-- km/h</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Pressure</span>
+                        <span class="detail-value" id="pressure">-- hPa</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Visibility</span>
+                        <span class="detail-value" id="visibility">-- km</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">UV Index</span>
+                        <span class="detail-value" id="uvIndex">--</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hourly Forecast -->
+            <section class="hourly-forecast">
+                <h2 class="section-title">Hourly Forecast</h2>
+                <div class="hourly-scroll-container">
+                    <div id="hourlyForecast" class="hourly-items">
+                        <!-- Hourly items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Forecast -->
+            <section class="daily-forecast">
+                <h2 class="section-title">5-Day Forecast</h2>
+                <div id="dailyForecast" class="daily-items">
+                    <!-- Daily items will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Weather Map -->
+            <section class="weather-map-section">
+                <h2 class="section-title">Weather Map</h2>
+                <div class="map-controls">
+                    <button class="map-layer-btn active" data-layer="temp">Temperature</button>
+                    <button class="map-layer-btn" data-layer="precipitation">Precipitation</button>
+                    <button class="map-layer-btn" data-layer="wind">Wind</button>
+                    <button class="map-layer-btn" data-layer="clouds">Clouds</button>
+                </div>
+                <div id="weatherMap" class="weather-map">
+                    <p>Weather map will be displayed here</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Favorites Section -->
+        <section class="favorites-section">
+            <div class="favorites-header">
+                <h2 class="section-title">Favorite Locations</h2>
+                <button id="addFavoriteBtn" class="add-favorite-btn" aria-label="Add current location to favorites">⭐ Add to Favorites</button>
+            </div>
+            <div id="favoritesList" class="favorites-list">
+                <!-- Favorite locations will be populated by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Weather Alert Modal -->
+    <div id="alertModal" class="modal" role="dialog" aria-labelledby="alertTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="alertTitle">Weather Alert</h3>
+                <button class="modal-close" aria-label="Close alert">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="alertContent">
+                    <!-- Alert content will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="alertOkBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="weather-icons.js"></script>
+    <script src="weather-api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

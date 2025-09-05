@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>📝 My Todo App</h1>
+            <div class="theme-toggle">
+                <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- Add Todo Form -->
+            <section class="add-todo-section">
+                <form id="addTodoForm" class="add-todo-form">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="todoInput" 
+                            placeholder="What needs to be done?" 
+                            required
+                            maxlength="200"
+                        >
+                        <button type="submit" class="add-btn">Add</button>
+                    </div>
+                    
+                    <div class="todo-options">
+                        <div class="option-group">
+                            <label for="todoPriority">Priority:</label>
+                            <select id="todoPriority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label for="todoDueDate">Due Date:</label>
+                            <input type="date" id="todoDueDate">
+                        </div>
+                        
+                        <div class="option-group">
+                            <label for="todoCategory">Category:</label>
+                            <input type="text" id="todoCategory" placeholder="Work, Personal, etc." maxlength="50">
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Todo Stats -->
+            <section class="todo-stats">
+                <div class="stats-item">
+                    <span class="stats-number" id="totalCount">0</span>
+                    <span class="stats-label">Total</span>
+                </div>
+                <div class="stats-item">
+                    <span class="stats-number" id="activeCount">0</span>
+                    <span class="stats-label">Active</span>
+                </div>
+                <div class="stats-item">
+                    <span class="stats-number" id="completedCount">0</span>
+                    <span class="stats-label">Completed</span>
+                </div>
+            </section>
+
+            <!-- Filters and Actions -->
+            <section class="todo-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="active">Active</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="clearCompleted" class="action-btn">Clear Completed</button>
+                    <button id="toggleAll" class="action-btn">Toggle All</button>
+                </div>
+            </section>
+
+            <!-- Search -->
+            <section class="search-section">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search todos..." class="search-input">
+                    <button id="clearSearch" class="clear-search">✕</button>
+                </div>
+            </section>
+
+            <!-- Todo List -->
+            <section class="todo-list-section">
+                <ul id="todoList" class="todo-list" role="list">
+                    <!-- Todos will be dynamically inserted here -->
+                </ul>
+                
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h3>No todos yet</h3>
+                    <p>Add a todo above to get started!</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Double-click to edit todos • Drag to reorder</p>
+        </footer>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="editModalTitle">Edit Todo</h2>
+                <button class="modal-close" aria-label="Close modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="editTodoForm">
+                    <div class="form-group">
+                        <label for="editTodoText">Todo Text:</label>
+                        <input type="text" id="editTodoText" required maxlength="200">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editTodoPriority">Priority:</label>
+                        <select id="editTodoPriority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editTodoDueDate">Due Date:</label>
+                        <input type="date" id="editTodoDueDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editTodoCategory">Category:</label>
+                        <input type="text" id="editTodoCategory" maxlength="50">
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="cancelEdit">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="todo-manager.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
