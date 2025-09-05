@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Test your knowledge with interactive quizzes on various topics">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="quiz-icon">🧠</span>
+                    Quiz Master
+                </h1>
+                
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalQuizzes">0</span>
+                        <span class="stat-label">Quizzes Taken</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="averageScore">0%</span>
+                        <span class="stat-label">Average Score</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="bestScore">0%</span>
+                        <span class="stat-label">Best Score</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Home Screen -->
+            <section id="homeScreen" class="screen active">
+                <div class="welcome-section">
+                    <h2>Welcome to Quiz Master!</h2>
+                    <p>Test your knowledge across various topics and difficulty levels.</p>
+                </div>
+
+                <!-- Quiz Categories -->
+                <div class="categories-section">
+                    <h3>Choose a Category</h3>
+                    <div class="categories-grid" id="categoriesGrid">
+                        <!-- Categories will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Recent Scores -->
+                <div class="recent-scores-section">
+                    <h3>Recent Scores</h3>
+                    <div id="recentScores" class="recent-scores-list">
+                        <p class="no-scores">No quizzes taken yet. Start your first quiz!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Setup Screen -->
+            <section id="setupScreen" class="screen">
+                <div class="setup-container">
+                    <h2>Quiz Setup</h2>
+                    
+                    <div class="setup-form">
+                        <div class="form-group">
+                            <label for="selectedCategory">Category:</label>
+                            <div id="selectedCategory" class="selected-category">JavaScript</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="difficultySelect">Difficulty:</label>
+                            <select id="difficultySelect" class="difficulty-select">
+                                <option value="easy">Easy (5 questions)</option>
+                                <option value="medium">Medium (10 questions)</option>
+                                <option value="hard">Hard (15 questions)</option>
+                                <option value="mixed">Mixed (20 questions)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timerToggle">Timer:</label>
+                            <div class="toggle-container">
+                                <input type="checkbox" id="timerToggle" class="toggle-input" checked>
+                                <label for="timerToggle" class="toggle-label">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">30 seconds per question</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="questionTypes">Question Types:</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" value="multiple-choice" checked>
+                                    <span class="checkmark"></span>
+                                    Multiple Choice
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" value="true-false" checked>
+                                    <span class="checkmark"></span>
+                                    True/False
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" value="fill-blank">
+                                    <span class="checkmark"></span>
+                                    Fill in the Blank
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setup-actions">
+                            <button id="backToHome" class="btn-secondary">Back</button>
+                            <button id="startQuiz" class="btn-primary">Start Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Screen -->
+            <section id="quizScreen" class="screen">
+                <!-- Quiz Header -->
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="progress-info">
+                            <span id="questionNumber">1</span> of <span id="totalQuestions">10</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-timer" id="quizTimer">
+                        <div class="timer-circle">
+                            <svg class="timer-svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" class="timer-bg"></circle>
+                                <circle cx="50" cy="50" r="45" class="timer-progress" id="timerProgress"></circle>
+                            </svg>
+                            <div class="timer-text" id="timerText">30</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-score">
+                        Score: <span id="currentScore">0</span>
+                    </div>
+                </div>
+
+                <!-- Question Container -->
+                <div class="question-container">
+                    <div class="question-card">
+                        <div class="question-header">
+                            <span class="question-type" id="questionType">Multiple Choice</span>
+                            <span class="question-difficulty" id="questionDifficulty">Medium</span>
+                        </div>
+                        
+                        <h3 class="question-text" id="questionText">
+                            Loading question...
+                        </h3>
+                        
+                        <div id="answerOptions" class="answer-options">
+                            <!-- Answer options will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="question-actions">
+                            <button id="submitAnswer" class="btn-primary" disabled>Submit Answer</button>
+                            <button id="skipQuestion" class="btn-secondary">Skip Question</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Controls -->
+                <div class="quiz-controls">
+                    <button id="pauseQuiz" class="control-btn">⏸️ Pause</button>
+                    <button id="quitQuiz" class="control-btn">❌ Quit</button>
+                </div>
+            </section>
+
+            <!-- Results Screen -->
+            <section id="resultsScreen" class="screen">
+                <div class="results-container">
+                    <div class="results-header">
+                        <div class="results-icon" id="resultsIcon">🎉</div>
+                        <h2 id="resultsTitle">Quiz Complete!</h2>
+                        <div class="final-score" id="finalScore">85%</div>
+                    </div>
+                    
+                    <div class="results-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="correctAnswers">8</div>
+                            <div class="stat-label">Correct</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="incorrectAnswers">2</div>
+                            <div class="stat-label">Incorrect</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="skippedAnswers">0</div>
+                            <div class="stat-label">Skipped</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="timeTaken">5:23</div>
+                            <div class="stat-label">Time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-feedback">
+                        <h3>Performance Analysis</h3>
+                        <div id="feedbackText" class="feedback-text">
+                            Great job! You have a solid understanding of the topic.
+                        </div>
+                        
+                        <div class="category-breakdown" id="categoryBreakdown">
+                            <!-- Category performance will be shown here -->
+                        </div>
+                    </div>
+                    
+                    <div class="results-actions">
+                        <button id="reviewAnswers" class="btn-secondary">Review Answers</button>
+                        <button id="retakeQuiz" class="btn-primary">Retake Quiz</button>
+                        <button id="newQuiz" class="btn-primary">New Quiz</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Review Screen -->
+            <section id="reviewScreen" class="screen">
+                <div class="review-container">
+                    <div class="review-header">
+                        <h2>Answer Review</h2>
+                        <button id="closeReview" class="close-btn">✕</button>
+                    </div>
+                    
+                    <div id="reviewContent" class="review-content">
+                        <!-- Review content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Pause Modal -->
+        <div id="pauseModal" class="modal" role="dialog" aria-labelledby="pauseTitle" aria-hidden="true">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="pauseTitle">Quiz Paused</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Your quiz is paused. You can resume anytime or quit to save your progress.</p>
+                    <div class="pause-stats">
+                        <div>Questions answered: <span id="pauseProgress">3/10</span></div>
+                        <div>Current score: <span id="pauseScore">75%</span></div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="resumeQuiz" class="btn-primary">Resume Quiz</button>
+                    <button id="quitFromPause" class="btn-secondary">Quit Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div id="notificationContainer" class="notification-container"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="quiz-data.js"></script>
+    <script src="quiz-engine.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
