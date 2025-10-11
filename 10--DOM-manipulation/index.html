@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>DOM Manipulation Examples</h1>
+        <p>Open the browser console to see the JavaScript output</p>
+    </header>
+
+    <main>
+        <section id="basic-examples">
+            <h2>Basic DOM Examples</h2>
+            <p id="demo-text">This text will be modified by JavaScript</p>
+            <button id="change-text-btn" class="btn primary">Change Text</button>
+            <button id="change-style-btn" class="btn secondary">Change Style</button>
+        </section>
+
+        <section id="form-examples">
+            <h2>Form Manipulation</h2>
+            <form id="sample-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" min="1" max="120">
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <select id="country" name="country">
+                        <option value="">Select a country</option>
+                        <option value="us">United States</option>
+                        <option value="ca">Canada</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="au">Australia</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        Subscribe to newsletter
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn primary">Submit</button>
+                    <button type="button" id="fill-form-btn" class="btn secondary">Fill Form</button>
+                    <button type="button" id="clear-form-btn" class="btn">Clear Form</button>
+                </div>
+            </form>
+            
+            <div id="form-output"></div>
+        </section>
+
+        <section id="dynamic-content">
+            <h2>Dynamic Content</h2>
+            <div id="content-container">
+                <p>This section will be populated dynamically</p>
+            </div>
+            <button id="add-content-btn" class="btn primary">Add Content</button>
+            <button id="remove-content-btn" class="btn secondary">Remove Content</button>
+        </section>
+
+        <section id="list-examples">
+            <h2>List Manipulation</h2>
+            <div class="list-controls">
+                <input type="text" id="new-item-input" placeholder="Enter new item">
+                <button id="add-item-btn" class="btn primary">Add Item</button>
+                <button id="clear-list-btn" class="btn secondary">Clear List</button>
+            </div>
+            <ul id="dynamic-list">
+                <li>Initial Item 1</li>
+                <li>Initial Item 2</li>
+                <li>Initial Item 3</li>
+            </ul>
+        </section>
+
+        <section id="styling-examples">
+            <h2>Dynamic Styling</h2>
+            <div id="style-target" class="style-box">
+                <p>This box will change styles dynamically</p>
+            </div>
+            <div class="style-controls">
+                <button id="red-btn" class="btn" data-color="red">Red</button>
+                <button id="blue-btn" class="btn" data-color="blue">Blue</button>
+                <button id="green-btn" class="btn" data-color="green">Green</button>
+                <button id="reset-style-btn" class="btn secondary">Reset</button>
+            </div>
+        </section>
+
+        <section id="event-delegation">
+            <h2>Event Delegation</h2>
+            <div id="button-container">
+                <button class="dynamic-btn" data-action="alert">Alert Button</button>
+                <button class="dynamic-btn" data-action="console">Console Button</button>
+                <button class="dynamic-btn" data-action="change">Change Button</button>
+            </div>
+            <button id="add-button-btn" class="btn primary">Add New Button</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>Check the browser console for detailed output and examples</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Additional interactive examples that work with the HTML
+        document.addEventListener('DOMContentLoaded', function() {
+            // Basic text and style changes
+            const demoText = document.getElementById('demo-text');
+            const changeTextBtn = document.getElementById('change-text-btn');
+            const changeStyleBtn = document.getElementById('change-style-btn');
+
+            changeTextBtn.addEventListener('click', function() {
+                demoText.textContent = 'Text changed by JavaScript! Time: ' + new Date().toLocaleTimeString();
+            });
+
+            changeStyleBtn.addEventListener('click', function() {
+                demoText.style.color = demoText.style.color === 'red' ? 'blue' : 'red';
+                demoText.style.fontSize = demoText.style.fontSize === '24px' ? '16px' : '24px';
+            });
+
+            // Form manipulation
+            const sampleForm = document.getElementById('sample-form');
+            const fillFormBtn = document.getElementById('fill-form-btn');
+            const clearFormBtn = document.getElementById('clear-form-btn');
+            const formOutput = document.getElementById('form-output');
+
+            fillFormBtn.addEventListener('click', function() {
+                document.getElementById('name').value = 'John Doe';
+                document.getElementById('email').value = 'john@example.com';
+                document.getElementById('age').value = '30';
+                document.getElementById('country').value = 'us';
+                document.getElementById('newsletter').checked = true;
+            });
+
+            clearFormBtn.addEventListener('click', function() {
+                sampleForm.reset();
+                formOutput.innerHTML = '';
+            });
+
+            sampleForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(sampleForm);
+                let output = '<h3>Form Data:</h3><ul>';
+                for (let [key, value] of formData.entries()) {
+                    output += `<li><strong>${key}:</strong> ${value}</li>`;
+                }
+                output += '</ul>';
+                formOutput.innerHTML = output;
+            });
+
+            // Dynamic content
+            const contentContainer = document.getElementById('content-container');
+            const addContentBtn = document.getElementById('add-content-btn');
+            const removeContentBtn = document.getElementById('remove-content-btn');
+            let contentCounter = 0;
+
+            addContentBtn.addEventListener('click', function() {
+                contentCounter++;
+                const newElement = document.createElement('div');
+                newElement.className = 'dynamic-content';
+                newElement.innerHTML = `
+                    <h4>Dynamic Content ${contentCounter}</h4>
+                    <p>This content was added dynamically at ${new Date().toLocaleTimeString()}</p>
+                `;
+                contentContainer.appendChild(newElement);
+            });
+
+            removeContentBtn.addEventListener('click', function() {
+                const dynamicContent = contentContainer.querySelector('.dynamic-content');
+                if (dynamicContent) {
+                    dynamicContent.remove();
+                }
+            });
+
+            // List manipulation
+            const dynamicList = document.getElementById('dynamic-list');
+            const newItemInput = document.getElementById('new-item-input');
+            const addItemBtn = document.getElementById('add-item-btn');
+            const clearListBtn = document.getElementById('clear-list-btn');
+
+            function addListItem() {
+                const itemText = newItemInput.value.trim();
+                if (itemText) {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        ${itemText}
+                        <button class="remove-item-btn" style="margin-left: 10px; padding: 2px 6px; background: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer;">Remove</button>
+                    `;
+                    dynamicList.appendChild(listItem);
+                    newItemInput.value = '';
+                }
+            }
+
+            addItemBtn.addEventListener('click', addListItem);
+            newItemInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addListItem();
+                }
+            });
+
+            clearListBtn.addEventListener('click', function() {
+                dynamicList.innerHTML = '';
+            });
+
+            // Event delegation for remove buttons
+            dynamicList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-item-btn')) {
+                    e.target.parentElement.remove();
+                }
+            });
+
+            // Dynamic styling
+            const styleTarget = document.getElementById('style-target');
+            const styleControls = document.querySelector('.style-controls');
+            const resetStyleBtn = document.getElementById('reset-style-btn');
+
+            styleControls.addEventListener('click', function(e) {
+                if (e.target.dataset.color) {
+                    styleTarget.style.backgroundColor = e.target.dataset.color;
+                    styleTarget.style.color = 'white';
+                    styleTarget.style.transform = 'scale(1.1)';
+                    styleTarget.style.transition = 'all 0.3s ease';
+                }
+            });
+
+            resetStyleBtn.addEventListener('click', function() {
+                styleTarget.style.cssText = '';
+            });
+
+            // Event delegation example
+            const buttonContainer = document.getElementById('button-container');
+            const addButtonBtn = document.getElementById('add-button-btn');
+            let buttonCounter = 3;
+
+            buttonContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('dynamic-btn')) {
+                    const action = e.target.dataset.action;
+                    switch (action) {
+                        case 'alert':
+                            alert('Alert button clicked!');
+                            break;
+                        case 'console':
+                            console.log('Console button clicked!');
+                            break;
+                        case 'change':
+                            e.target.textContent = 'Changed! ' + new Date().toLocaleTimeString();
+                            break;
+                    }
+                }
+            });
+
+            addButtonBtn.addEventListener('click', function() {
+                buttonCounter++;
+                const newButton = document.createElement('button');
+                newButton.className = 'dynamic-btn';
+                newButton.dataset.action = 'alert';
+                newButton.textContent = `Dynamic Button ${buttonCounter}`;
+                buttonContainer.appendChild(newButton);
+            });
+        });
+    </script>
+</body>
+</html>
