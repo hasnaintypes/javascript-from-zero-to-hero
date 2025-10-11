@@ -8,7 +8,7 @@ The DOM is a programming interface for HTML documents. It represents the page so
 
 ### DOM Tree Structure
 
-\`\`\`
+```
 Document
 └── html
     ├── head
@@ -20,42 +20,42 @@ Document
         └── div
             ├── span
             └── button
-\`\`\`
+```
 
 ## Selecting Elements
 
 ### getElementById()
 
-\`\`\`javascript
+```javascript
 // Select element by ID
 const header = document.getElementById('main-header');
 console.log(header);
-\`\`\`
+```
 
 ### getElementsByClassName()
 
-\`\`\`javascript
+```javascript
 // Select elements by class name (returns HTMLCollection)
 const buttons = document.getElementsByClassName('btn');
 console.log(buttons); // HTMLCollection
 
 // Convert to array for easier manipulation
 const buttonArray = Array.from(buttons);
-\`\`\`
+```
 
 ### getElementsByTagName()
 
-\`\`\`javascript
+```javascript
 // Select elements by tag name
 const paragraphs = document.getElementsByTagName('p');
 const allDivs = document.getElementsByTagName('div');
-\`\`\`
+```
 
 ### querySelector() and querySelectorAll()
 
 Modern and flexible selectors using CSS syntax.
 
-\`\`\`javascript
+```javascript
 // Select first matching element
 const firstButton = document.querySelector('.btn');
 const headerById = document.querySelector('#main-header');
@@ -68,13 +68,13 @@ const allParagraphs = document.querySelectorAll('p');
 // Complex selectors
 const specificElement = document.querySelector('div.container > p.highlight');
 const formInputs = document.querySelectorAll('form input[type="text"]');
-\`\`\`
+```
 
 ## Manipulating Element Content
 
 ### textContent vs innerHTML
 
-\`\`\`javascript
+```javascript
 const element = document.querySelector('#content');
 
 // textContent - gets/sets text only (safe from XSS)
@@ -87,11 +87,11 @@ console.log(element.innerHTML);
 
 // innerText - similar to textContent but respects styling
 element.innerText = 'Visible text only';
-\`\`\`
+```
 
 ### Changing Attributes
 
-\`\`\`javascript
+```javascript
 const image = document.querySelector('img');
 
 // Get attribute
@@ -113,11 +113,11 @@ if (image.hasAttribute('data-id')) {
 // Direct property access (for standard attributes)
 image.src = 'another-image.jpg';
 image.alt = 'Another description';
-\`\`\`
+```
 
 ### Working with Classes
 
-\`\`\`javascript
+```javascript
 const element = document.querySelector('.my-element');
 
 // Add class
@@ -141,11 +141,11 @@ element.classList.replace('old-class', 'new-class');
 // Get all classes
 console.log(element.className); // string of all classes
 console.log([...element.classList]); // array of classes
-\`\`\`
+```
 
 ### Styling Elements
 
-\`\`\`javascript
+```javascript
 const element = document.querySelector('#my-element');
 
 // Inline styles
@@ -166,13 +166,13 @@ Object.assign(element.style, {
 const computedStyle = window.getComputedStyle(element);
 console.log(computedStyle.color);
 console.log(computedStyle.fontSize);
-\`\`\`
+```
 
 ## Creating and Modifying Elements
 
 ### Creating Elements
 
-\`\`\`javascript
+```javascript
 // Create new element
 const newDiv = document.createElement('div');
 const newParagraph = document.createElement('p');
@@ -189,11 +189,11 @@ newButton.classList.add('btn', 'btn-primary');
 
 // Create text node
 const textNode = document.createTextNode('This is just text');
-\`\`\`
+```
 
 ### Adding Elements to DOM
 
-\`\`\`javascript
+```javascript
 const container = document.querySelector('#container');
 const newElement = document.createElement('p');
 newElement.textContent = 'New paragraph';
@@ -218,11 +218,11 @@ targetElement.insertAdjacentHTML('beforebegin', '<p>Before target</p>');
 targetElement.insertAdjacentHTML('afterbegin', '<p>Start of target</p>');
 targetElement.insertAdjacentHTML('beforeend', '<p>End of target</p>');
 targetElement.insertAdjacentHTML('afterend', '<p>After target</p>');
-\`\`\`
+```
 
 ### Removing Elements
 
-\`\`\`javascript
+```javascript
 const elementToRemove = document.querySelector('#remove-me');
 
 // Modern way
@@ -238,11 +238,11 @@ container.innerHTML = ''; // Quick but not ideal for memory
 while (container.firstChild) {
     container.removeChild(container.firstChild);
 }
-\`\`\`
+```
 
 ### Cloning Elements
 
-\`\`\`javascript
+```javascript
 const original = document.querySelector('#original');
 
 // Shallow clone (element only, no children)
@@ -253,13 +253,13 @@ const deepClone = original.cloneNode(true);
 
 // Add cloned element to DOM
 document.body.appendChild(deepClone);
-\`\`\`
+```
 
 ## Navigating the DOM
 
 ### Parent, Child, and Sibling Navigation
 
-\`\`\`javascript
+```javascript
 const element = document.querySelector('#current');
 
 // Parent navigation
@@ -280,11 +280,11 @@ const previousSibling = element.previousElementSibling;
 if (element.contains(someOtherElement)) {
     console.log('element contains someOtherElement');
 }
-\`\`\`
+```
 
 ### Traversing with Loops
 
-\`\`\`javascript
+```javascript
 const container = document.querySelector('#container');
 
 // Loop through children
@@ -303,13 +303,13 @@ function traverseDOM(element, callback) {
 traverseDOM(document.body, (el) => {
     console.log(el.tagName);
 });
-\`\`\`
+```
 
 ## Form Manipulation
 
 ### Getting Form Values
 
-\`\`\`javascript
+```javascript
 // Text inputs
 const textInput = document.querySelector('#username');
 const username = textInput.value;
@@ -330,11 +330,11 @@ const selectedOption = select.options[select.selectedIndex];
 // Multiple select
 const multiSelect = document.querySelector('#skills');
 const selectedSkills = Array.from(multiSelect.selectedOptions).map(option => option.value);
-\`\`\`
+```
 
 ### Setting Form Values
 
-\`\`\`javascript
+```javascript
 // Set text input
 document.querySelector('#username').value = 'john_doe';
 
@@ -352,11 +352,11 @@ const multiSelect = document.querySelector('#skills');
 Array.from(multiSelect.options).forEach(option => {
     option.selected = ['javascript', 'python'].includes(option.value);
 });
-\`\`\`
+```
 
 ### Form Validation
 
-\`\`\`javascript
+```javascript
 function validateForm() {
     const form = document.querySelector('#myForm');
     const errors = [];
@@ -365,7 +365,7 @@ function validateForm() {
     const requiredFields = form.querySelectorAll('[required]');
     requiredFields.forEach(field => {
         if (!field.value.trim()) {
-            errors.push(\`\${field.name} is required\`);
+            errors.push(`${field.name} is required`);
             field.classList.add('error');
         } else {
             field.classList.remove('error');
@@ -374,7 +374,7 @@ function validateForm() {
     
     // Validate email
     const emailField = form.querySelector('#email');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^s@]+@[^s@]+.[^s@]+$/;
     if (emailField.value && !emailRegex.test(emailField.value)) {
         errors.push('Please enter a valid email address');
         emailField.classList.add('error');
@@ -383,18 +383,18 @@ function validateForm() {
     // Display errors
     const errorContainer = document.querySelector('#errors');
     if (errors.length > 0) {
-        errorContainer.innerHTML = errors.map(error => \`<p>\${error}</p>\`).join('');
+        errorContainer.innerHTML = errors.map(error => `<p>${error}</p>`).join('');
         return false;
     } else {
         errorContainer.innerHTML = '';
         return true;
     }
 }
-\`\`\`
+```
 
 ## Working with Data Attributes
 
-\`\`\`javascript
+```javascript
 const element = document.querySelector('#data-element');
 
 // Set data attributes
@@ -416,7 +416,7 @@ console.log(element.dataset.lastLogin); // '2023-01-01'
 
 // Convert camelCase to kebab-case automatically
 element.dataset.firstName = 'John'; // creates data-first-name="John"
-\`\`\`
+```
 
 ## Performance Considerations
 
@@ -424,12 +424,12 @@ element.dataset.firstName = 'John'; // creates data-first-name="John"
 
 Use document fragments for multiple DOM insertions to improve performance.
 
-\`\`\`javascript
+```javascript
 // Inefficient - multiple DOM updates
 const container = document.querySelector('#container');
 for (let i = 0; i < 1000; i++) {
     const div = document.createElement('div');
-    div.textContent = \`Item \${i}\`;
+    div.textContent = `Item ${i}`;
     container.appendChild(div); // DOM update each time
 }
 
@@ -437,15 +437,15 @@ for (let i = 0; i < 1000; i++) {
 const fragment = document.createDocumentFragment();
 for (let i = 0; i < 1000; i++) {
     const div = document.createElement('div');
-    div.textContent = \`Item \${i}\`;
+    div.textContent = `Item ${i}`;
     fragment.appendChild(div); // no DOM update
 }
 container.appendChild(fragment); // single DOM update
-\`\`\`
+```
 
 ### Batch DOM Operations
 
-\`\`\`javascript
+```javascript
 const element = document.querySelector('#element');
 
 // Inefficient - multiple reflows
@@ -458,25 +458,25 @@ element.style.cssText = 'width: 100px; height: 100px; background-color: red;';
 
 // Or use classes
 element.className = 'styled-element';
-\`\`\`
+```
 
 ## Common DOM Patterns
 
 ### Creating Reusable Components
 
-\`\`\`javascript
+```javascript
 function createCard(title, content, imageUrl) {
     const card = document.createElement('div');
     card.className = 'card';
     
-    card.innerHTML = \`
-        <img src="\${imageUrl}" alt="\${title}" class="card-image">
+    card.innerHTML = `
+        <img src="${imageUrl}" alt="${title}" class="card-image">
         <div class="card-content">
-            <h3 class="card-title">\${title}</h3>
-            <p class="card-text">\${content}</p>
+            <h3 class="card-title">${title}</h3>
+            <p class="card-text">${content}</p>
             <button class="card-button">Read More</button>
         </div>
-    \`;
+    `;
     
     return card;
 }
@@ -485,11 +485,11 @@ function createCard(title, content, imageUrl) {
 const container = document.querySelector('#cards-container');
 const newCard = createCard('My Title', 'Card content here', 'image.jpg');
 container.appendChild(newCard);
-\`\`\`
+```
 
 ### Dynamic List Management
 
-\`\`\`javascript
+```javascript
 class TodoList {
     constructor(containerId) {
         this.container = document.querySelector(containerId);
@@ -525,14 +525,14 @@ class TodoList {
         
         this.todos.forEach(todo => {
             const todoElement = document.createElement('div');
-            todoElement.className = \`todo-item \${todo.completed ? 'completed' : ''}\`;
-            todoElement.innerHTML = \`
-                <span class="todo-text">\${todo.text}</span>
-                <button onclick="todoList.toggleTodo(\${todo.id})">
-                    \${todo.completed ? 'Undo' : 'Complete'}
+            todoElement.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+            todoElement.innerHTML = `
+                <span class="todo-text">${todo.text}</span>
+                <button onclick="todoList.toggleTodo(${todo.id})">
+                    ${todo.completed ? 'Undo' : 'Complete'}
                 </button>
-                <button onclick="todoList.removeTodo(\${todo.id})">Delete</button>
-            \`;
+                <button onclick="todoList.removeTodo(${todo.id})">Delete</button>
+            `;
             this.container.appendChild(todoElement);
         });
     }
@@ -540,13 +540,13 @@ class TodoList {
 
 // Usage
 const todoList = new TodoList('#todo-container');
-\`\`\`
+```
 
 ## Best Practices
 
 ### 1. Cache DOM Queries
 
-\`\`\`javascript
+```javascript
 // Bad - querying DOM multiple times
 document.querySelector('#button').addEventListener('click', () => {
     document.querySelector('#output').textContent = 'Clicked!';
@@ -562,11 +562,11 @@ button.addEventListener('click', () => {
     output.textContent = 'Clicked!';
     counter.textContent = '1';
 });
-\`\`\`
+```
 
 ### 2. Use Event Delegation
 
-\`\`\`javascript
+```javascript
 // Bad - adding event listeners to many elements
 document.querySelectorAll('.button').forEach(button => {
     button.addEventListener('click', handleClick);
@@ -578,11 +578,11 @@ document.querySelector('#container').addEventListener('click', (e) => {
         handleClick(e);
     }
 });
-\`\`\`
+```
 
 ### 3. Minimize DOM Manipulation
 
-\`\`\`javascript
+```javascript
 // Bad - multiple DOM updates
 const list = document.querySelector('#list');
 for (let i = 0; i < items.length; i++) {
@@ -593,29 +593,29 @@ for (let i = 0; i < items.length; i++) {
 
 // Good - single DOM update
 const list = document.querySelector('#list');
-const html = items.map(item => \`<li>\${item}</li>\`).join('');
+const html = items.map(item => `<li>${item}</li>`).join('');
 list.innerHTML = html;
-\`\`\`
+```
 
 ### 4. Use Semantic HTML
 
-\`\`\`javascript
+```javascript
 // Good - semantic structure makes DOM manipulation easier
 const article = document.querySelector('article');
 const header = article.querySelector('header h1');
 const content = article.querySelector('.content');
 const footer = article.querySelector('footer');
-\`\`\`
+```
 
 ## Challenge Questions
 
-1. What's the difference between \`textContent\`, \`innerHTML\`, and \`innerText\`?
-2. When should you use \`querySelector\` vs \`getElementById\`?
-3. What's the difference between \`children\` and \`childNodes\`?
+1. What's the difference between `textContent`, `innerHTML`, and `innerText`?
+2. When should you use `querySelector` vs `getElementById`?
+3. What's the difference between `children` and `childNodes`?
 4. How can you improve performance when adding many elements to the DOM?
 5. What's event delegation and why is it useful?
 6. How do you safely insert user-generated content into the DOM?
-7. What's the difference between \`appendChild\` and \`append\`?
+7. What's the difference between `appendChild` and `append`?
 8. How do you traverse the DOM tree efficiently?
-\`\`\`
-\`\`\`
+```
+```

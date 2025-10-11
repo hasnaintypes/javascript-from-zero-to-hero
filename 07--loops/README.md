@@ -8,7 +8,7 @@ The most common loop, ideal when you know how many times to iterate.
 
 ### Basic for Loop
 
-\`\`\`javascript
+```javascript
 // Syntax: for (initialization; condition; increment)
 for (let i = 0; i < 5; i++) {
     console.log("Iteration:", i);
@@ -23,29 +23,29 @@ for (let i = 10; i >= 1; i--) {
 for (let i = 0; i <= 20; i += 5) {
     console.log("Skip by 5:", i);
 }
-\`\`\`
+```
 
 ### Looping Through Arrays
 
-\`\`\`javascript
+```javascript
 let fruits = ["apple", "banana", "orange", "grape"];
 
 // Traditional for loop
 for (let i = 0; i < fruits.length; i++) {
-    console.log(\`Index \${i}: \${fruits[i]}\`);
+    console.log(`Index ${i}: ${fruits[i]}`);
 }
 
 // Reverse iteration
 for (let i = fruits.length - 1; i >= 0; i--) {
-    console.log(\`Reverse \${i}: \${fruits[i]}\`);
+    console.log(`Reverse ${i}: ${fruits[i]}`);
 }
-\`\`\`
+```
 
 ## while Loop
 
 Executes while a condition is true. Good when you don't know the exact number of iterations.
 
-\`\`\`javascript
+```javascript
 let count = 0;
 while (count < 5) {
     console.log("Count:", count);
@@ -70,13 +70,13 @@ while (i < numbers.length) {
     }
     i++;
 }
-\`\`\`
+```
 
 ## do...while Loop
 
 Executes at least once, then continues while condition is true.
 
-\`\`\`javascript
+```javascript
 let num = 0;
 do {
     console.log("Number:", num);
@@ -92,13 +92,13 @@ do {
     choice = 3; // Simulating user choice
     console.log("You chose:", choice);
 } while (choice !== 3);
-\`\`\`
+```
 
 ## for...in Loop
 
 Iterates over enumerable properties of an object.
 
-\`\`\`javascript
+```javascript
 let person = {
     name: "John",
     age: 30,
@@ -107,21 +107,21 @@ let person = {
 
 // Loop through object properties
 for (let key in person) {
-    console.log(\`\${key}: \${person[key]}\`);
+    console.log(`${key}: ${person[key]}`);
 }
 
 // With arrays (not recommended - use for...of instead)
 let colors = ["red", "green", "blue"];
 for (let index in colors) {
-    console.log(\`Index \${index}: \${colors[index]}\`);
+    console.log(`Index ${index}: ${colors[index]}`);
 }
-\`\`\`
+```
 
 ## for...of Loop (ES6)
 
 Iterates over iterable objects (arrays, strings, etc.).
 
-\`\`\`javascript
+```javascript
 let fruits = ["apple", "banana", "orange"];
 
 // Loop through array values
@@ -137,9 +137,9 @@ for (let char of word) {
 
 // With index using entries()
 for (let [index, fruit] of fruits.entries()) {
-    console.log(\`\${index}: \${fruit}\`);
+    console.log(`${index}: ${fruit}`);
 }
-\`\`\`
+```
 
 ## Loop Control Statements
 
@@ -147,7 +147,7 @@ for (let [index, fruit] of fruits.entries()) {
 
 Exits the loop immediately.
 
-\`\`\`javascript
+```javascript
 // Find first number greater than 10
 let numbers = [5, 8, 12, 3, 15, 7];
 for (let num of numbers) {
@@ -164,16 +164,16 @@ outer: for (let i = 0; i < 3; i++) {
             console.log("Breaking from nested loop");
             break outer; // Break from outer loop
         }
-        console.log(\`i: \${i}, j: \${j}\`);
+        console.log(`i: ${i}, j: ${j}`);
     }
 }
-\`\`\`
+```
 
 ### continue Statement
 
 Skips the current iteration and continues with the next.
 
-\`\`\`javascript
+```javascript
 // Skip even numbers
 for (let i = 1; i <= 10; i++) {
     if (i % 2 === 0) {
@@ -190,13 +190,13 @@ for (let word of words) {
     }
     console.log("Word:", word);
 }
-\`\`\`
+```
 
 ## Nested Loops
 
 Loops inside other loops.
 
-\`\`\`javascript
+```javascript
 // Multiplication table
 for (let i = 1; i <= 5; i++) {
     let row = "";
@@ -215,16 +215,16 @@ let matrix = [
 
 for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-        console.log(\`matrix[\${i}][\${j}] = \${matrix[i][j]}\`);
+        console.log(`matrix[${i}][${j}] = ${matrix[i][j]}`);
     }
 }
-\`\`\`
+```
 
 ## Array Methods vs Loops
 
 Modern JavaScript provides array methods that are often better than traditional loops.
 
-\`\`\`javascript
+```javascript
 let numbers = [1, 2, 3, 4, 5];
 
 // Traditional for loop
@@ -255,12 +255,12 @@ for (let num of numbers) {
 
 // Modern approach with reduce()
 let sum2 = numbers.reduce((total, num) => total + num, 0);
-\`\`\`
+```
 
 ## Common Loop Patterns
 
 ### 1. Accumulator Pattern
-\`\`\`javascript
+```javascript
 // Sum of array
 let numbers = [1, 2, 3, 4, 5];
 let sum = 0;
@@ -280,10 +280,10 @@ let sentence = "";
 for (let word of words) {
     sentence += word + " ";
 }
-\`\`\`
+```
 
 ### 2. Search Pattern
-\`\`\`javascript
+```javascript
 // Linear search
 function findElement(arr, target) {
     for (let i = 0; i < arr.length; i++) {
@@ -304,10 +304,10 @@ function findMax(arr) {
     }
     return max;
 }
-\`\`\`
+```
 
 ### 3. Transformation Pattern
-\`\`\`javascript
+```javascript
 // Convert array of strings to uppercase
 let names = ["alice", "bob", "charlie"];
 let upperNames = [];
@@ -325,12 +325,12 @@ for (let i = 0; i < scores.length; i++) {
         grade: scores[i] >= 90 ? "A" : scores[i] >= 80 ? "B" : "C"
     });
 }
-\`\`\`
+```
 
 ## Performance Considerations
 
 ### 1. Cache Array Length
-\`\`\`javascript
+```javascript
 let arr = [1, 2, 3, 4, 5];
 
 // Less efficient - length calculated each iteration
@@ -342,10 +342,10 @@ for (let i = 0; i < arr.length; i++) {
 for (let i = 0, len = arr.length; i < len; i++) {
     // process arr[i]
 }
-\`\`\`
+```
 
 ### 2. Choose Right Loop Type
-\`\`\`javascript
+```javascript
 // for...of is generally fastest for arrays
 for (let item of array) { }
 
@@ -354,11 +354,11 @@ array.forEach(item => { });
 
 // Traditional for loop gives most control
 for (let i = 0; i < array.length; i++) { }
-\`\`\`
+```
 
 ## Infinite Loops (Avoid These!)
 
-\`\`\`javascript
+```javascript
 // Infinite while loop - missing increment
 let i = 0;
 while (i < 10) {
@@ -376,32 +376,32 @@ for (let i = 0; i >= 0; i++) {
 // - Use break statement
 // - Fix the condition
 // - Ensure counter is modified correctly
-\`\`\`
+```
 
 ## Best Practices
 
 ### 1. Use Descriptive Variable Names
-\`\`\`javascript
+```javascript
 // Bad
 for (let i = 0; i < arr.length; i++) { }
 
 // Good
 for (let index = 0; index < students.length; index++) { }
 for (let student of students) { }
-\`\`\`
+```
 
 ### 2. Prefer Modern Array Methods
-\`\`\`javascript
+```javascript
 // Instead of loops, use:
 array.forEach()  // for side effects
 array.map()      // for transformation
 array.filter()   // for selection
 array.reduce()   // for accumulation
 array.find()     // for searching
-\`\`\`
+```
 
 ### 3. Avoid Deep Nesting
-\`\`\`javascript
+```javascript
 // Bad - deep nesting
 for (let i = 0; i < arr1.length; i++) {
     for (let j = 0; j < arr2.length; j++) {
@@ -417,26 +417,26 @@ function processInnerLoop(arr3) {
         // process item
     }
 }
-\`\`\`
+```
 
 ### 4. Use Early Returns/Breaks
-\`\`\`javascript
+```javascript
 // Find first match and exit early
 for (let item of items) {
     if (item.matches(criteria)) {
         return item; // Exit early
     }
 }
-\`\`\`
+```
 
 ## Challenge Questions
 
-1. What's the difference between \`for...in\` and \`for...of\` loops?
-2. When would you use a \`while\` loop instead of a \`for\` loop?
+1. What's the difference between `for...in` and `for...of` loops?
+2. When would you use a `while` loop instead of a `for` loop?
 3. How do you break out of a nested loop?
-4. What's the difference between \`break\` and \`continue\`?
+4. What's the difference between `break` and `continue`?
 5. Write a loop to find the second largest number in an array.
 6. Create a function that uses loops to reverse a string without using built-in methods.
 7. How can you avoid infinite loops?
-8. When should you use traditional loops vs array methods like \`map()\` and \`filter()\`?
-\`\`\`
+8. When should you use traditional loops vs array methods like `map()` and `filter()`?
+```

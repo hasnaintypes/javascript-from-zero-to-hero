@@ -11,7 +11,7 @@ Scope determines where variables and functions can be accessed in your code. It'
 #### 1. Global Scope
 Variables declared outside any function or block have global scope.
 
-\`\`\`javascript
+```javascript
 var globalVar = "I'm global";
 let globalLet = "I'm also global";
 const globalConst = "Me too!";
@@ -21,12 +21,12 @@ function anyFunction() {
     console.log(globalLet); // Accessible
     console.log(globalConst); // Accessible
 }
-\`\`\`
+```
 
 #### 2. Function Scope
 Variables declared inside a function are only accessible within that function.
 
-\`\`\`javascript
+```javascript
 function myFunction() {
     var functionScoped = "Only inside function";
     let alsoFunctionScoped = "Me too";
@@ -36,12 +36,12 @@ function myFunction() {
 
 myFunction();
 // console.log(functionScoped); // Error! Not accessible outside
-\`\`\`
+```
 
 #### 3. Block Scope (ES6)
-Variables declared with \`let\` and \`const\` inside a block \`{}\` are block-scoped.
+Variables declared with `let` and `const` inside a block `{}` are block-scoped.
 
-\`\`\`javascript
+```javascript
 if (true) {
     var varVariable = "I'm var";
     let letVariable = "I'm let";
@@ -51,13 +51,13 @@ if (true) {
 console.log(varVariable); // Works - var is function-scoped
 // console.log(letVariable); // Error! - let is block-scoped
 // console.log(constVariable); // Error! - const is block-scoped
-\`\`\`
+```
 
 ## Lexical Scope
 
 JavaScript uses lexical (static) scoping - inner functions have access to variables in their outer scope.
 
-\`\`\`javascript
+```javascript
 function outerFunction() {
     let outerVariable = "I'm outer";
     
@@ -72,13 +72,13 @@ function outerFunction() {
 }
 
 outerFunction();
-\`\`\`
+```
 
 ### Scope Chain
 
 When JavaScript looks for a variable, it searches up the scope chain.
 
-\`\`\`javascript
+```javascript
 let global = "global";
 
 function level1() {
@@ -104,7 +104,7 @@ function level1() {
 }
 
 level1();
-\`\`\`
+```
 
 ## Hoisting
 
@@ -113,7 +113,7 @@ Hoisting is JavaScript's behavior of moving declarations to the top of their sco
 ### Variable Hoisting
 
 #### var Hoisting
-\`\`\`javascript
+```javascript
 console.log(myVar); // undefined (not error!)
 var myVar = "Hello";
 console.log(myVar); // "Hello"
@@ -122,34 +122,34 @@ console.log(myVar); // "Hello"
 // var myVar; // Declaration hoisted
 // console.log(myVar); // undefined
 // myVar = "Hello"; // Assignment stays in place
-\`\`\`
+```
 
 #### let and const Hoisting
-\`\`\`javascript
+```javascript
 // console.log(myLet); // ReferenceError! Temporal Dead Zone
 let myLet = "Hello";
 
 // console.log(myConst); // ReferenceError! Temporal Dead Zone
 const myConst = "World";
-\`\`\`
+```
 
 ### Function Hoisting
 
 #### Function Declarations
 Function declarations are fully hoisted.
 
-\`\`\`javascript
+```javascript
 sayHello(); // Works! Prints "Hello"
 
 function sayHello() {
     console.log("Hello");
 }
-\`\`\`
+```
 
 #### Function Expressions
 Function expressions are not hoisted.
 
-\`\`\`javascript
+```javascript
 // sayGoodbye(); // TypeError! sayGoodbye is not a function
 
 var sayGoodbye = function() {
@@ -157,12 +157,12 @@ var sayGoodbye = function() {
 };
 
 sayGoodbye(); // Now it works
-\`\`\`
+```
 
 #### Arrow Functions
 Arrow functions are not hoisted.
 
-\`\`\`javascript
+```javascript
 // greet(); // ReferenceError! Cannot access before initialization
 
 const greet = () => {
@@ -170,13 +170,13 @@ const greet = () => {
 };
 
 greet(); // Works
-\`\`\`
+```
 
 ## Temporal Dead Zone (TDZ)
 
 The period between entering scope and variable declaration where the variable cannot be accessed.
 
-\`\`\`javascript
+```javascript
 function example() {
     // TDZ starts here for 'myLet'
     
@@ -188,13 +188,13 @@ function example() {
     
     console.log(myLet); // 2
 }
-\`\`\`
+```
 
 ## Closures
 
 A closure is when an inner function has access to variables from its outer function even after the outer function has returned.
 
-\`\`\`javascript
+```javascript
 function createCounter() {
     let count = 0;
     
@@ -210,12 +210,12 @@ console.log(counter()); // 2
 console.log(counter()); // 3
 
 // 'count' is still accessible through closure
-\`\`\`
+```
 
 ### Practical Closure Examples
 
 #### 1. Data Privacy
-\`\`\`javascript
+```javascript
 function createBankAccount(initialBalance) {
     let balance = initialBalance;
     
@@ -242,10 +242,10 @@ const account = createBankAccount(100);
 console.log(account.deposit(50)); // 150
 console.log(account.withdraw(30)); // 120
 // console.log(balance); // Error! balance is private
-\`\`\`
+```
 
 #### 2. Function Factories
-\`\`\`javascript
+```javascript
 function createMultiplier(multiplier) {
     return function(number) {
         return number * multiplier;
@@ -257,12 +257,12 @@ const triple = createMultiplier(3);
 
 console.log(double(5)); // 10
 console.log(triple(5)); // 15
-\`\`\`
+```
 
 ## Common Scope Issues
 
 ### 1. Loop Variable Problem
-\`\`\`javascript
+```javascript
 // Problem with var
 for (var i = 0; i < 3; i++) {
     setTimeout(function() {
@@ -285,10 +285,10 @@ for (var i = 0; i < 3; i++) {
         }, 100);
     })(i);
 }
-\`\`\`
+```
 
 ### 2. Variable Shadowing
-\`\`\`javascript
+```javascript
 let name = "Global";
 
 function example() {
@@ -304,12 +304,12 @@ function example() {
 
 example();
 console.log(name); // "Global"
-\`\`\`
+```
 
 ## Best Practices
 
 ### 1. Use let and const Instead of var
-\`\`\`javascript
+```javascript
 // Bad
 var name = "John";
 var age = 30;
@@ -317,10 +317,10 @@ var age = 30;
 // Good
 const name = "John";
 let age = 30;
-\`\`\`
+```
 
 ### 2. Declare Variables at the Top
-\`\`\`javascript
+```javascript
 function example() {
     // Declare all variables at the top
     let result;
@@ -334,10 +334,10 @@ function example() {
     
     return result;
 }
-\`\`\`
+```
 
 ### 3. Avoid Global Variables
-\`\`\`javascript
+```javascript
 // Bad - polluting global scope
 var userName = "John";
 var userAge = 30;
@@ -350,23 +350,23 @@ const UserModule = {
         return this.name;
     }
 };
-\`\`\`
+```
 
 ### 4. Use IIFE for Initialization
-\`\`\`javascript
+```javascript
 // Immediately Invoked Function Expression
 (function() {
     // Initialization code here
     let config = loadConfiguration();
     setupApplication(config);
 })();
-\`\`\`
+```
 
 ## Module Pattern
 
 Using closures to create modules with private and public methods.
 
-\`\`\`javascript
+```javascript
 const Calculator = (function() {
     // Private variables
     let result = 0;
@@ -374,7 +374,7 @@ const Calculator = (function() {
     
     // Private methods
     function addToHistory(operation, value) {
-        history.push(\`\${operation} \${value} = \${result}\`);
+        history.push(`${operation} ${value} = ${result}`);
     }
     
     // Public API
@@ -417,12 +417,12 @@ const Calculator = (function() {
 Calculator.add(10).multiply(2).subtract(5);
 console.log(Calculator.getResult()); // 15
 console.log(Calculator.getHistory());
-\`\`\`
+```
 
 ## Debugging Scope Issues
 
 ### 1. Use Console and Debugger
-\`\`\`javascript
+```javascript
 function debugScope() {
     let outerVar = "outer";
     
@@ -435,27 +435,27 @@ function debugScope() {
     
     inner();
 }
-\`\`\`
+```
 
 ### 2. Use Strict Mode
-\`\`\`javascript
+```javascript
 "use strict";
 
 function example() {
     // undeclaredVar = "This will throw an error in strict mode";
     let declaredVar = "This is fine";
 }
-\`\`\`
+```
 
 ## Challenge Questions
 
 1. What's the difference between function scope and block scope?
-2. Explain what hoisting is and how it works differently for \`var\`, \`let\`, and \`const\`.
+2. Explain what hoisting is and how it works differently for `var`, `let`, and `const`.
 3. What is the Temporal Dead Zone?
 4. How do closures work and why are they useful?
 5. What's the difference between function declarations and function expressions in terms of hoisting?
 6. How would you fix the classic loop closure problem?
 7. What is variable shadowing and how can it cause issues?
 8. Explain the scope chain and how JavaScript resolves variable names.
-\`\`\`
-\`\`\`
+```
+```
