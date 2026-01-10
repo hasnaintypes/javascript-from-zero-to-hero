@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage & Web APIs Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .output {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+            margin-top: 15px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        
+        .error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .success {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+    </style>
+</head>
+<body>
+    <h1>Storage & Web APIs Demo</h1>
+    
+    <!-- Local Storage Demo -->
+    <div class="container">
+        <h2>Local Storage Demo</h2>
+        <div class="form-group">
+            <label for="localKey">Key:</label>
+            <input type="text" id="localKey" placeholder="Enter key">
+        </div>
+        <div class="form-group">
+            <label for="localValue">Value:</label>
+            <textarea id="localValue" rows="3" placeholder="Enter value (can be JSON)"></textarea>
+        </div>
+        <button onclick="saveToLocal()">Save to Local Storage</button>
+        <button onclick="loadFromLocal()">Load from Local Storage</button>
+        <button onclick="removeFromLocal()">Remove from Local Storage</button>
+        <button onclick="clearLocal()">Clear All Local Storage</button>
+        <button onclick="showLocalInfo()">Show Storage Info</button>
+        <div id="localOutput" class="output"></div>
+    </div>
+    
+    <!-- Session Storage Demo -->
+    <div class="container">
+        <h2>Session Storage Demo</h2>
+        <div class="form-group">
+            <label for="sessionKey">Key:</label>
+            <input type="text" id="sessionKey" placeholder="Enter key">
+        </div>
+        <div class="form-group">
+            <label for="sessionValue">Value:</label>
+            <textarea id="sessionValue" rows="3" placeholder="Enter value"></textarea>
+        </div>
+        <button onclick="saveToSession()">Save to Session Storage</button>
+        <button onclick="loadFromSession()">Load from Session Storage</button>
+        <button onclick="removeFromSession()">Remove from Session Storage</button>
+        <div id="sessionOutput" class="output"></div>
+    </div>
+    
+    <!-- Web APIs Demo -->
+    <div class="container">
+        <h2>Web APIs Demo</h2>
+        <button onclick="getLocation()">Get Current Location</button>
+        <button onclick="requestNotifications()">Request Notification Permission</button>
+        <button onclick="showNotification()">Show Notification</button>
+        <div class="form-group">
+            <label for="fileInput">Select File:</label>
+            <input type="file" id="fileInput" onchange="handleFileSelect(event)">
+        </div>
+        <div id="webApiOutput" class="output"></div>
+    </div>
+
+    <script src="storage-manager.js"></script>
+    <script>
+        const storage = new StorageManager();
+        const webAPIs = new WebAPIsManager();
+        
+        // Local Storage functions
+        function saveToLocal() {
+            const key = document.getElementById('localKey').value;
+            const value = document.getElementById('localValue').value;
+            
+            if (!key || !value) {
+                showOutput('localOutput', 'Please enter both key and value', 'error');
+                return;
+            }
+            
+            const success = storage.setLocal(key, value);
+            if (success) {
+                showOutput('localOutput', `Saved "${key}" to localStorage`, 'success');
+            } else {
+                showOutput('localOutput', 'Failed to save to localStorage', 'error');
+            }
+        }
+        
+        function loadFromLocal() {
+            const key = document.getElementById('localKey').value;
+            
+            if (!key) {
+                showOutput('localOutput', 'Please enter a key', 'error');
+                return;
+            }
+            
+            const value = storage.getLocal(key);
+            if (value !== null) {
+                document.getElementById('localValue').value = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+                showOutput('localOutput', `Loaded "${key}" from localStorage`, 'success');
+            } else {
+                showOutput('localOutput', `Key "${key}" not found in localStorage`, 'error');
+            }
+        }
+        
+        function removeFromLocal() {
+            const key = document.getElementById('localKey').value;
+            
+            if (!key) {
+                showOutput('localOutput', 'Please enter a key', 'error');
+                return;
+            }
+            
+            const success = storage.removeLocal(key);
+            if (success) {
+                showOutput('localOutput', `Removed "${key}" from localStorage`, 'success');
+                document.getElementById('localValue').value = '';
+            } else {
+                showOutput('localOutput', 'Failed to remove from localStorage', 'error');
+            }
+        }
+        
+        function clearLocal() {
+            const success = storage.clearLocal();
+            if (success) {
+                showOutput('localOutput', 'Cleared all localStorage', 'success');
+                document.getElementById('localValue').value = '';
+            } else {
+                showOutput('localOutput', 'Failed to clear localStorage', 'error');
+            }
+        }
+        
+        function showLocalInfo() {
+            const info = storage.getStorageInfo();
+            showOutput('localOutput', JSON.stringify(info, null, 2), 'success');
+        }
+        
+        // Session Storage functions
+        function saveToSession() {
+            const key = document.getElementById('sessionKey').value;
+            const value = document.getElementById('sessionValue').value;
+            
+            if (!key || !value) {
+                showOutput('sessionOutput', 'Please enter both key and value', 'error');
+                return;
+            }
+            
+            const success = storage.setSession(key, value);
+            if (success) {
+                showOutput('sessionOutput', `Saved "${key}" to sessionStorage`, 'success');
+            } else {
+                showOutput('sessionOutput', 'Failed to save to sessionStorage', 'error');
+            }
+        }
+        
+        function loadFromSession() {
+            const key = document.getElementById('sessionKey').value;
+            
+            if (!key) {
+                showOutput('sessionOutput', 'Please enter a key', 'error');
+                return;
+            }
+            
+            const value = storage.getSession(key);
+            if (value !== null) {
+                document.getElementById('sessionValue').value = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+                showOutput('sessionOutput', `Loaded "${key}" from sessionStorage`, 'success');
+            } else {
+                showOutput('sessionOutput', `Key "${key}" not found in sessionStorage`, 'error');
+            }
+        }
+        
+        function removeFromSession() {
+            const key = document.getElementById('sessionKey').value;
+            
+            if (!key) {
+                showOutput('sessionOutput', 'Please enter a key', 'error');
+                return;
+            }
+            
+            try {
+                sessionStorage.removeItem(key);
+                showOutput('sessionOutput', `Removed "${key}" from sessionStorage`, 'success');
+                document.getElementById('sessionValue').value = '';
+            } catch (error) {
+                showOutput('sessionOutput', 'Failed to remove from sessionStorage', 'error');
+            }
+        }
+        
+        // Web APIs functions
+        async function getLocation() {
+            try {
+                showOutput('webApiOutput', 'Getting location...', 'success');
+                const position = await webAPIs.getCurrentPosition();
+                showOutput('webApiOutput', `Location: ${position.latitude}, ${position.longitude}\nAccuracy: ${position.accuracy}m`, 'success');
+            } catch (error) {
+                showOutput('webApiOutput', `Location error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function requestNotifications() {
+            try {
+                const permission = await webAPIs.requestNotificationPermission();
+                showOutput('webApiOutput', `Notification permission: ${permission}`, 'success');
+            } catch (error) {
+                showOutput('webApiOutput', `Notification error: ${error.message}`, 'error');
+            }
+        }
+        
+        function showNotification() {
+            try {
+                const notification = webAPIs.showNotification('Test Notification', {
+                    body: 'This is a test notification from the demo',
+                    icon: '/favicon.ico'
+                });
+                
+                if (notification) {
+                    showOutput('webApiOutput', 'Notification shown successfully', 'success');
+                    
+                    notification.onclick = () => {
+                        showOutput('webApiOutput', 'Notification clicked!', 'success');
+                        notification.close();
+                    };
+                } else {
+                    showOutput('webApiOutput', 'Could not show notification', 'error');
+                }
+            } catch (error) {
+                showOutput('webApiOutput', `Notification error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            try {
+                showOutput('webApiOutput', `Reading file: ${file.name} (${file.size} bytes)`, 'success');
+                
+                if (file.type.startsWith('image/')) {
+                    const dataURL = await webAPIs.readFileAsDataURL(file);
+                    showOutput('webApiOutput', `Image loaded (${dataURL.length} characters)`, 'success');
+                } else {
+                    const text = await webAPIs.readFileAsText(file);
+                    showOutput('webApiOutput', `File content:\n${text.substring(0, 500)}${text.length > 500 ? '...' : ''}`, 'success');
+                }
+            } catch (error) {
+                showOutput('webApiOutput', `File read error: ${error.message}`, 'error');
+            }
+        }
+        
+        // Utility function
+        function showOutput(elementId, message, type = '') {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `output ${type}`;
+        }
+        
+        // Initialize with some demo data
+        window.addEventListener('load', () => {
+            storage.setLocal('demo-user', { name: 'Demo User', theme: 'light' });
+            storage.setSession('demo-session', { startTime: new Date().toISOString() });
+        });
+    </script>
+</body>
+</html>
