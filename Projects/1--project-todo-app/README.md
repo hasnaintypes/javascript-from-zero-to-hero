@@ -57,11 +57,3 @@ Build a fully functional todo application with local storage persistence, filter
 - Keyboard shortcuts
 - Dark mode toggle
 ```
-
-```
-
-
-```
-
-
-```

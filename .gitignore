@@ -1,0 +1,6 @@
+# Workspace-level gitignore
+
+# Local config for weather app
+Projects/2--project-weather-app/config.local.js
+
+
