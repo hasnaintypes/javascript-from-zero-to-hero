@@ -14,7 +14,7 @@ Functions are:
 
 The traditional way to create functions.
 
-\`\`\`javascript
+```javascript
 function functionName(parameters) {
     // function body
     return value; // optional
@@ -26,7 +26,7 @@ function greet(name) {
 }
 
 let message = greet("John"); // "Hello, John!"
-\`\`\`
+```
 
 ### Function Declaration Characteristics:
 - **Hoisted**: Can be called before declaration
@@ -37,7 +37,7 @@ let message = greet("John"); // "Hello, John!"
 
 Assigning a function to a variable.
 
-\`\`\`javascript
+```javascript
 const functionName = function(parameters) {
     // function body
     return value;
@@ -49,7 +49,7 @@ const add = function(a, b) {
 };
 
 let result = add(5, 3); // 8
-\`\`\`
+```
 
 ### Function Expression Characteristics:
 - **Not hoisted**: Cannot be called before declaration
@@ -60,7 +60,7 @@ let result = add(5, 3); // 8
 
 Shorter syntax for writing functions.
 
-\`\`\`javascript
+```javascript
 // Basic syntax
 const functionName = (parameters) => {
     return value;
@@ -80,13 +80,13 @@ const processData = (data) => {
     let processed = data.toUpperCase();
     return processed + "!";
 };
-\`\`\`
+```
 
 ### Arrow Function Characteristics:
 - **Shorter syntax**: More concise
 - **Implicit return**: Single expressions return automatically
-- **No \`this\` binding**: Inherits \`this\` from parent scope
-- **Cannot be constructors**: Can't use with \`new\`
+- **No `this` binding**: Inherits `this` from parent scope
+- **Cannot be constructors**: Can't use with `new`
 
 ## Parameters and Arguments
 
@@ -94,31 +94,31 @@ const processData = (data) => {
 - **Parameters**: Variables in function definition
 - **Arguments**: Actual values passed to function
 
-\`\`\`javascript
+```javascript
 function greet(name, age) { // name and age are parameters
-    return \`Hello \${name}, you are \${age} years old\`;
+    return `Hello ${name}, you are ${age} years old`;
 }
 
 greet("John", 25); // "John" and 25 are arguments
-\`\`\`
+```
 
 ### Default Parameters (ES6)
 
-\`\`\`javascript
+```javascript
 function greet(name = "Guest", greeting = "Hello") {
-    return \`\${greeting}, \${name}!\`;
+    return `${greeting}, ${name}!`;
 }
 
 console.log(greet());           // "Hello, Guest!"
 console.log(greet("John"));     // "Hello, John!"
 console.log(greet("Alice", "Hi")); // "Hi, Alice!"
-\`\`\`
+```
 
 ### Rest Parameters (ES6)
 
 Collect multiple arguments into an array.
 
-\`\`\`javascript
+```javascript
 function sum(...numbers) {
     return numbers.reduce((total, num) => total + num, 0);
 }
@@ -128,17 +128,17 @@ console.log(sum(1, 2, 3, 4, 5)); // 15
 
 // Mixed parameters
 function introduce(name, age, ...hobbies) {
-    return \`I'm \${name}, \${age} years old. I like: \${hobbies.join(", ")}\`;
+    return `I'm ${name}, ${age} years old. I like: ${hobbies.join(", ")}`;
 }
 
 console.log(introduce("John", 25, "reading", "coding", "gaming"));
-\`\`\`
+```
 
 ## Return Statement
 
-Functions can return values using the \`return\` statement.
+Functions can return values using the `return` statement.
 
-\`\`\`javascript
+```javascript
 function add(a, b) {
     return a + b; // Returns the sum
 }
@@ -159,13 +159,13 @@ function logMessage(message) {
     console.log(message);
     // Implicitly returns undefined
 }
-\`\`\`
+```
 
 ## Function Scope
 
 Variables declared inside functions are only accessible within that function.
 
-\`\`\`javascript
+```javascript
 let globalVar = "I'm global";
 
 function myFunction() {
@@ -190,13 +190,13 @@ function outer() {
     inner();
     // console.log(innerVar); // Error! Can't access inner scope
 }
-\`\`\`
+```
 
 ## Higher-Order Functions
 
 Functions that take other functions as arguments or return functions.
 
-\`\`\`javascript
+```javascript
 // Function that takes another function as argument
 function processArray(arr, callback) {
     let result = [];
@@ -222,13 +222,13 @@ const triple = createMultiplier(3);
 
 console.log(double(5)); // 10
 console.log(triple(4)); // 12
-\`\`\`
+```
 
 ## Immediately Invoked Function Expression (IIFE)
 
 Functions that execute immediately when defined.
 
-\`\`\`javascript
+```javascript
 // Basic IIFE
 (function() {
     console.log("This runs immediately!");
@@ -256,13 +256,13 @@ const myModule = (function() {
 })();
 
 console.log(myModule.publicMethod()); // "I'm private"
-\`\`\`
+```
 
 ## Function Methods
 
 Functions are objects and have built-in methods.
 
-\`\`\`javascript
+```javascript
 function greet(greeting, punctuation) {
     return greeting + ", " + this.name + punctuation;
 }
@@ -278,12 +278,12 @@ console.log(greet.apply(person, ["Hi", "?"])); // "Hi, John?"
 // bind() - create new function with bound 'this'
 const boundGreet = greet.bind(person);
 console.log(boundGreet("Hey", ".")); // "Hey, John."
-\`\`\`
+```
 
 ## Common Function Patterns
 
 ### 1. Callback Functions
-\`\`\`javascript
+```javascript
 function fetchData(callback) {
     setTimeout(() => {
         const data = { id: 1, name: "John" };
@@ -294,10 +294,10 @@ function fetchData(callback) {
 fetchData(function(data) {
     console.log("Received:", data);
 });
-\`\`\`
+```
 
 ### 2. Factory Functions
-\`\`\`javascript
+```javascript
 function createUser(name, email) {
     return {
         name: name,
@@ -310,10 +310,10 @@ function createUser(name, email) {
 
 const user1 = createUser("John", "john@example.com");
 console.log(user1.greet()); // "Hello, I'm John"
-\`\`\`
+```
 
 ### 3. Recursive Functions
-\`\`\`javascript
+```javascript
 function factorial(n) {
     if (n <= 1) {
         return 1; // Base case
@@ -331,33 +331,33 @@ function countdown(num) {
 }
 
 countdown(3); // 3, 2, 1, 0
-\`\`\`
+```
 
 ## Best Practices
 
 ### 1. Use Descriptive Names
-\`\`\`javascript
+```javascript
 // Bad
 function calc(x, y) { return x * y; }
 
 // Good
 function calculateArea(width, height) { return width * height; }
-\`\`\`
+```
 
 ### 2. Keep Functions Small
-\`\`\`javascript
+```javascript
 // Each function should do one thing well
 function validateEmail(email) {
     return email.includes("@") && email.includes(".");
 }
 
 function formatUserName(firstName, lastName) {
-    return \`\${firstName} \${lastName}\`.trim();
+    return `${firstName} ${lastName}`.trim();
 }
-\`\`\`
+```
 
 ### 3. Use Pure Functions When Possible
-\`\`\`javascript
+```javascript
 // Pure function - same input always gives same output, no side effects
 function add(a, b) {
     return a + b;
@@ -369,10 +369,10 @@ function increment() {
     counter++; // Side effect
     return counter;
 }
-\`\`\`
+```
 
 ### 4. Handle Edge Cases
-\`\`\`javascript
+```javascript
 function divide(a, b) {
     if (b === 0) {
         throw new Error("Cannot divide by zero");
@@ -386,15 +386,15 @@ function getFirstElement(arr) {
     }
     return arr[0];
 }
-\`\`\`
+```
 
 ## Function Declaration vs Expression vs Arrow
 
 | Feature | Declaration | Expression | Arrow |
 |---------|-------------|------------|-------|
 | Hoisting | Yes | No | No |
-| \`this\` binding | Yes | Yes | No (inherits) |
-| \`arguments\` object | Yes | Yes | No |
+| `this` binding | Yes | Yes | No (inherits) |
+| `arguments` object | Yes | Yes | No |
 | Constructor | Yes | Yes | No |
 | Syntax | Verbose | Medium | Concise |
 
@@ -406,6 +406,6 @@ function getFirstElement(arr) {
 4. Explain what a higher-order function is with an example.
 5. What is function hoisting and which types of functions are hoisted?
 6. Create a function that takes any number of arguments and returns their average.
-7. What's the difference between \`call()\`, \`apply()\`, and \`bind()\`?
+7. What's the difference between `call()`, `apply()`, and `bind()`?
 8. Write a recursive function to calculate the sum of numbers from 1 to n.
-\`\`\`
+```
