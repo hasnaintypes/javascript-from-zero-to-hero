@@ -4,7 +4,7 @@ A comprehensive, interactive JavaScript learning system designed to take you fro
 
 ## 📚 Course Structure
 
-The course is organized into 22 progressive modules, each building upon the previous ones:
+The course is organized into 20 progressive modules, each building upon the previous ones:
 
 ### Fundamentals (Modules 1-7)
 - **01 - Introduction & Basics**: JavaScript overview, setup, and first steps
@@ -31,12 +31,10 @@ The course is organized into 22 progressive modules, each building upon the prev
 - **16 - Local Storage & APIs**: Browser storage and web APIs
 - **17 - Fetch & AJAX**: Making HTTP requests and handling responses
 
-### Practical Projects (Modules 18-22)
+### Practical Projects (Modules 18-20)
 - **18 - Todo Application**: Full-featured task management app
 - **19 - Weather Application**: Real-time weather app with API integration
-- **20 - Quiz Application**: Interactive quiz system with scoring
-- **21 - Expense Tracker**: Personal finance management tool
-- **22 - Interview Preparation**: Common questions and coding challenges
+- **20 - Interview Preparation**: Common questions and coding challenges
 
 ## 🚀 Getting Started
 
@@ -104,18 +102,6 @@ By completing this course, you will:
 - Responsive design
 - Favorite locations management
 
-### 3. Quiz Application (Module 20)
-- Interactive quiz system
-- Multiple question types
-- Scoring and progress tracking
-- Results analysis and review
-
-### 4. Expense Tracker (Module 21)
-- Personal finance management
-- Data visualization with charts
-- Category-based organization
-- Export and import functionality
-
 ## 📊 Progress Tracking
 
 Track your progress through the course:
@@ -124,7 +110,7 @@ Track your progress through the course:
 - [ ] Modules 8-11: Intermediate Concepts
 - [ ] Modules 12-15: Advanced Topics
 - [ ] Modules 16-17: Web APIs & Storage
-- [ ] Modules 18-22: Practical Projects
+- [ ] Modules 18-20: Practical Projects
 
 ## 🔧 Tools and Resources
 
@@ -175,4 +161,3 @@ If you need help:
 **Happy Learning! 🚀**
 
 Remember: The best way to learn programming is by doing. Don't just read the code—write it, modify it, break it, and fix it. Every error is a learning opportunity!
-```
